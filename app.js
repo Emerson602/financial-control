@@ -1,13 +1,14 @@
 const app = {
     data() {
         return {
-            taskInput: '',
+            showForm: false,
                  
         }
     },
     methods: {
-
-        
+        toggleForm() {
+            this.showForm = !this.showForm;
+          }        
     },
     mounted() {
        
