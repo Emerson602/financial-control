@@ -14,7 +14,8 @@ const app = {
             amount: parseInt(),
             currentDateTime: new Date(), 
             numberTransaction: parseInt(localStorage.getItem("number-transaction") || 0),  
-            transactionLi: '',                                  
+            applyColor: 'success',
+            historyType: ''                                           
         }
     },
     methods: {
@@ -40,7 +41,7 @@ const app = {
             this.reload()
         },  
         toggleHistoric() {
-            this.showHistoric = !this.showHistoric;                
+            this.showHistoric = !this.showHistoric;                                     
         },
         closeHistoric() {
             this.toggleHistoric()
@@ -49,7 +50,7 @@ const app = {
         
         getTransactionHistory() {
            this.transactionList = [];
-        
+
             let count = 0;
             for (let i = 0; i < this.numberTransaction; i++) {
                 count += 1;
@@ -57,17 +58,15 @@ const app = {
                 const transactionDate = localStorage.getItem(`transaction-date-${count}`, this.dateTime);
                 const transactionDescription = localStorage.getItem(`transaction-description-${count}`, this.descriptionInput);
                 const transactionType = localStorage.getItem(`transaction-type-${count}`, this.typeInput);
-                const transactionValue = localStorage.getItem(`transaction-value-${count}`, this.valueInput);                
+                const transactionValue = localStorage.getItem(`transaction-value-${count}`, this.valueInput);              
                 
-                let setColor = 'success'
+                this.historyType = transactionType;
 
-                if(transactionType === 'Despesa') {
-                    setColor = 'danger'
-                }
-               //this.transactionLi = document.querySelector('#transaction');
-               //this.transactionLi.setAttribute('class', `border border-${setColor}`);      
-                
-                this.transactionList.push(`      
+                this.setColor();
+   
+                this.transactionList.push(`  
+                  <div class="d-flex flex-column align-items-center justify-content-center bg-light p-3 border-5 border-start-0 border-start-top border-bottom-0 border-top-0 rounded mt-2  border border-${this.applyColor}">    
+                    
                     <span id="data" class="text-center">${transactionDate}</span>   
                     <span class="mt-2">Descrição: </span>                      
                     <span class="mt-1 text-start text-sm-center fw-bold">${transactionDescription}</span>
@@ -75,14 +74,24 @@ const app = {
 
                     <div class="d-flex flex-row align-items-center justify-content-center">
                         <span class="m-2">Valor: </span>               
-                        <span id="historical-transaction-value" class="text-start text-sm-center text-${setColor} fw-bold"> ${transactionValue}</span>
-                    </div>                                             
-                `); 
-
-                console.log()
+                        <span id="historical-transaction-value" class="text-start text-sm-center text-${this.applyColor} fw-bold"> ${transactionValue}</span>
+                    </div>
+                    
+                  </div>                                             
+                `);                
             }    
         
-        },  
+        }, 
+        setColor() {            
+            if(this.historyType === 'Despesa') {
+                this.applyColor = 'danger'               
+                return
+            }
+           
+            if(this.historyType === 'Receita'){
+                this.applyColor = 'success'
+            }
+        },
         newTransaction() {         
 
             if(this.descriptionInput !== '' && this.typeInput === 'Receita' && this.valueInput !== '' && this.valueInput > 0 && !isNaN(this.valueInput)) {   
@@ -165,7 +174,7 @@ const app = {
        this.setCurrentYear()
        this.getTransactionHistory()
        this.currentBalance()
-       this.showCurrentBalance()       
+       this.showCurrentBalance()     
     }
 }
 
