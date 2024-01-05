@@ -51,7 +51,7 @@
                 
                 
                 <ul id="transactions-list" class="p-0 rounded">
-                    <li id="transaction" v-for="(transaction, index) in transactionList" :key="index" class="bg-light p-3 border border-success border-5 border-start-0 border-start-top border-bottom-0 border-top-0 rounded mt-2" v-html="transaction">
+                    <li id="transaction" v-for="(transaction, index) in transactionList" :key="index" class="d-flex flex-column align-items-center justify-content-center bg-light p-3 border-5 border-start-0 border-start-top border-bottom-0 border-top-0 rounded mt-2" v-html="transaction">
                         {{ transaction }}
                     </li>
                 </ul>                 
@@ -87,7 +87,7 @@
 
     <footer id="footer" class="text-center mt-5"></footer>
 
-    <script type="text/javascript" src="./app.js"></script> 
+    <script type="text/javascript" defer src="./app.js"></script> 
     
 </body>
 </html>
