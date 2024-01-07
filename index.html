@@ -39,26 +39,25 @@
        </header>    
 
        
-       <div id="controls" class="d-inline"  v-if="!showForm && !showHistoric">
+       <div id="controls" class="d-inline mb-5"  v-if="!showForm && !showHistoric">
             <button @click="toggleForm" class="col-10 col-md-6 mt-5 m-2 p-2 rounded border-0 bg-warning text-dark"> Fazer uma transação </button> 
-            <button @click="toggleHistoric" class="col-10 col-md-6 m-2 p-2 rounded border-0 bg-warning text-dark"> Historico de transações </button>      
+            <button @click="scrollToHistoric" class="col-10 col-md-6 m-2 p-2 rounded border-0 bg-warning text-dark"> Historico de transações </button>      
        </div>
 
-       <main v-if="showHistoric">
-            <div class="mt-5">
+       <main  id="historic" v-if="!showForm && !showHistoric" class="mt-5">
+        
+            <div>
                 
                 <h2 class="mb-5">Historico de transações:</h2>
                 
                 
                 <ul id="transactions-list" class="p-0 rounded">
-                    <li id="transaction" v-for="(transaction, index) in transactionList" :key="index" v-html="transaction">
-                        {{ transaction }}
-                    </li>
+                    <li id="transaction" v-for="(transaction, index) in transactionList" :key="index" v-html="transaction">{{ transaction }}</li>
                 </ul>                 
                 
             </div>    
             
-            <button @click="closeHistoric" class="col-12 col-md-6 mt-3 mb-5 p-2 rounded border-0 bg-warning text-dark"> Voltar </button>          
+                
        </main>
      
        <div v-if="showForm" id="transaction-form" class="d-flex flex-column align-items-center mt-5">

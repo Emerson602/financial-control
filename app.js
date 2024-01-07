@@ -39,15 +39,18 @@ const app = {
         closeForm() {
             this.toggleForm()
             this.reload()
-        },  
+        }, /* 
         toggleHistoric() {
             this.showHistoric = !this.showHistoric;                                     
         },
         closeHistoric() {
             this.toggleHistoric()
             this.reload()
-        },
-        
+        },*/ 
+        scrollToHistoric() {
+            const historic = document.querySelector('#historic')
+            historic.scrollIntoView({ behavior: 'smooth' });
+        },        
         getTransactionHistory() {
            this.transactionList = [];
 

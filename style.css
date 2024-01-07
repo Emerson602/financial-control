@@ -12,12 +12,14 @@ body {
     background-image: linear-gradient(to bottom right, rgba(147,112,219, 1), rgba(218,112,214, 1));      
     background-repeat: no-repeat; 
     background-size: auto 150%; 
+    
 }
 
 #app {
     width: 750px;    
     margin: auto;
     height: 100%;
+    scroll-behavior: smooth;
 }
 
 #logo {
