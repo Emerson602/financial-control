@@ -32,8 +32,20 @@ input, select {
     height: 40px;
 }
 
-#transactions-list {    
-    height: 50vh;
+#homeButton {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;  
+    outline: none;      
+}
+
+#transactions-list { 
+    height: auto;   
+    max-height: 1500px;    
     overflow-x: hidden; 
     overflow-y: scroll; 
 }
@@ -54,10 +66,6 @@ input, select {
     #logo {
         width: 100px;
         height: auto;
-    }
-
-    #transactions-list {
-        height: 60vh;
     }
 }
 
