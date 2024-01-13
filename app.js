@@ -19,9 +19,7 @@ const app = {
             showModal: false,
             currentDay: '',
             currentMonth: '',
-            currentYear: '',
-            currentHour: '',
-            currentMinute: '',            
+            currentYear: '',              
         }
     },
     methods: {
@@ -34,8 +32,9 @@ const app = {
                   localStorage.setItem("dateTime", formattedDateTime);
                   this.dateTime = localStorage.getItem("dateTime") 
 
-                  this.convertCurrentDate()                                                     
-            }, 2000) 
+                  this.convertCurrentDate()
+                  this.getTransactionHistory()                                                     
+            }, 1000) 
          }, 
 
          convertCurrentDate() {
@@ -43,14 +42,8 @@ const app = {
             let dateTimeString = this.dateTime.split(' ')                     
             let dayNumber = parseInt(dateTimeString [0]) 
             let monthNumber =  dateTimeString [2]
-            let yearNumber =  parseInt(dateTimeString [4])
-            let timeString =  dateTimeString [6]
+            let yearNumber =  parseInt(dateTimeString [4])            
 
-            timeString = timeString.split(':')
-
-            let minuteNumber = parseInt(timeString[0])
-            let hoursNumber = parseInt(timeString[1]) 
-            
             if(monthNumber === 'janeiro') {                
                 this.currentMonth = 1
             } else if(monthNumber === 'fevereiro') {
@@ -78,9 +71,7 @@ const app = {
             } 
 
             this.currentDay = dayNumber    
-            this.currentYear = yearNumber
-            this.currentHour = minuteNumber
-            this.currentMinute = hoursNumber          
+            this.currentYear = yearNumber               
          },
 
         setCurrentYear() {         
@@ -160,70 +151,64 @@ const app = {
                 const transactionType = localStorage.getItem(`transaction-type-${count}`, this.typeInput);
                 const transactionValue = localStorage.getItem(`transaction-value-${count}`, this.valueInput);       
                 
-                // inicio 
+                // home
                     
                 let newTransactionString = transactionDate.split(" ");
                 let index = count;
-                let day = parseInt(newTransactionString[0]);
+                let oldDay = parseInt(newTransactionString[0]);
                 let monthString = newTransactionString[2];
-                let month; 
+                let oldMonth; 
                 
                 if(monthString === 'janeiro') {
-                    month = 1
+                    oldMonth = 1
                 } else if(monthString === 'fevereiro') {
-                    month = 2
+                    oldMonth = 2
                 } else if(monthString === 'março') {
-                    month = 3
+                    oldMonth = 3
                 } else if(monthString === 'abril') {
-                    month = 4
+                    oldMonth = 4
                 } else if(monthString === 'maio') {
-                    month = 5
+                    oldMonth = 5
                 } else if(monthString === 'junho') {
-                    month = 6
+                    oldMonth = 6
                 } else if(monthString === 'julho') {
-                    month = 7
+                    oldMonth = 7
                 } else if(monthString === 'agosto') {
-                    month = 8
+                    oldMonth = 8
                 } else if(monthString === 'setembro') {
-                    month = 9
+                    oldMonth = 9
                 } else if(monthString === 'outubro') {
-                    month = 10
+                    oldMonth = 10
                 } else if(monthString === 'novembro') {
-                    month = 11
+                    oldMonth = 11
                 } else if(monthString === 'dezembro') {
-                    month = 12
+                    oldMonth = 12
                 }  
                 
-                let year = parseInt(newTransactionString[4])
-                let time = newTransactionString[6] 
+                let oldYear = parseInt(newTransactionString[4])
+              
 
-                let newTimeString = time.split(":")                 
+                if(this.currentDay >= oldDay && this.currentMonth >= oldMonth && this.currentYear > oldYear) { 
 
-                let hours = parseInt(newTimeString[0])
-                let minutes = parseInt(newTimeString[1])
-
-                console.log(`Indice ${index}: ${day} ${month} ${year} ${hours}:${minutes}`) 
-                console.log(`Indice ${index}: ${day} ${month} ${year + 1} ${hours}:${minutes}`) 
-                
-
-                if(this.currentDay >= day && this.currentMonth >= month + 6 && this.currentYear >= year) {                     
                     localStorage.removeItem(`transaction-date-${count}`, this.dateTime);
                     localStorage.removeItem(`transaction-description-${count}`, this.descriptionInput);
                     localStorage.removeItem(`transaction-type-${count}`, this.typeInput);
                     localStorage.removeItem(`transaction-value-${count}`, this.valueInput); 
 
-                    this.transactionList.pop()
+                    count -= 1
                     this.reload()
-                } else if(this.currentDay >= 1 && this.currentMonth > month + 6 && this.currentYear >= year) {                     
+                    
+                } else if(this.currentDay >= 1 && this.currentMonth > oldMonth && this.currentYear > oldYear) {
+
                     localStorage.removeItem(`transaction-date-${count}`, this.dateTime);
                     localStorage.removeItem(`transaction-description-${count}`, this.descriptionInput);
                     localStorage.removeItem(`transaction-type-${count}`, this.typeInput);
                     localStorage.removeItem(`transaction-value-${count}`, this.valueInput); 
 
-                    this.transactionList.pop()
+                    count -= 1
                     this.reload()
-                }          
-                
+                } 
+
                 // final
 
                 this.historyType = transactionType;
@@ -248,11 +233,6 @@ const app = {
                 
             }  
         }, 
-
-        deleteOldTransactions() {
-
-           
-        },
         
         setColor() {   
 
