@@ -21,7 +21,8 @@ const app = {
             deleteAllConfirmation: false,
             currentDay: '',
             currentMonth: '',
-            currentYear: '',              
+            currentYear: '',   
+            months: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],           
         }
     },
     methods: {
@@ -45,33 +46,14 @@ const app = {
             let dayNumber = parseInt(dateTimeString [0]) 
             let monthNumber =  dateTimeString [2]
             let yearNumber =  parseInt(dateTimeString [4])            
-
-            if(monthNumber === 'janeiro') {                
-                this.currentMonth = 1
-            } else if(monthNumber === 'fevereiro') {
-                this.currentMonth = 2
-            } else if(monthNumber === 'março') {
-                this.currentMonth = 3
-            } else if(monthNumber === 'abril') {
-                this.currentMonth = 4
-            } else if(monthNumber === 'maio') {
-                this.currentMonth = 5
-            } else if(monthNumber === 'junho') {
-                this.currentMonth = 6
-            } else if(monthNumber === 'julho') {
-                this.currentMonth = 7
-            } else if(monthNumber === 'agosto') {
-                this.currentMonth = 8
-            } else if(monthNumber === 'setembro') {
-                this.currentMonth = 9
-            } else if(monthNumber === 'outubro') {
-                this.currentMonth = 10
-            } else if(monthNumber === 'novembro') {
-                this.currentMonth = 11
-            } else if(monthNumber === 'dezembro') {
-                this.currentMonth = 12
-            } 
-
+            
+            for(let i = 0; i < this.months.length; i++) {
+                
+                if(monthNumber === this.months[i]) {                
+                    this.currentMonth = i + 1;                    
+                }
+            };         
+            
             this.currentDay = dayNumber    
             this.currentYear = yearNumber               
          },
@@ -160,31 +142,12 @@ const app = {
                 let monthString = newTransactionString[2];
                 let oldMonth; 
                 
-                if(monthString === 'janeiro') {
-                    oldMonth = 1
-                } else if(monthString === 'fevereiro') {
-                    oldMonth = 2
-                } else if(monthString === 'março') {
-                    oldMonth = 3
-                } else if(monthString === 'abril') {
-                    oldMonth = 4
-                } else if(monthString === 'maio') {
-                    oldMonth = 5
-                } else if(monthString === 'junho') {
-                    oldMonth = 6
-                } else if(monthString === 'julho') {
-                    oldMonth = 7
-                } else if(monthString === 'agosto') {
-                    oldMonth = 8
-                } else if(monthString === 'setembro') {
-                    oldMonth = 9
-                } else if(monthString === 'outubro') {
-                    oldMonth = 10
-                } else if(monthString === 'novembro') {
-                    oldMonth = 11
-                } else if(monthString === 'dezembro') {
-                    oldMonth = 12
-                }  
+                for(let i = 0; i < this.months.length; i++) {
+                
+                    if(monthString === this.months[i]) {                
+                        oldMonth = i + 1;                    
+                    }
+                };                  
                 
                 let oldYear = parseInt(newTransactionString[4])
               
